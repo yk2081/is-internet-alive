@@ -13,6 +13,7 @@
 
 
 //import NetworkSpeed from 'network-speed'; // ES6
+var args = process.argv.slice(2);
 const NetworkSpeed = require('network-speed');  // ES5
 const testNetworkSpeed = new NetworkSpeed();
 
@@ -22,7 +23,9 @@ async function getNetworkDownloadSpeed() {
   let date = new Date().toString();
   try {
     let speed = await testNetworkSpeed.checkDownloadSpeed(baseUrl, fileSizeInBytes);
+    speed.location = args[0];
     console.log(date + " : " + speed.mbps + " mbps");
+    //console.log(speed);
   } catch (err) {
     console.log(date + " : " + err.toString());
   }
@@ -47,6 +50,6 @@ async function getNetworkDownloadSpeed() {
 //   console.log(date + " : " + speed.mbps + " mbps");
 // }
 
-setInterval(function() {
-    getNetworkDownloadSpeed();
+setInterval(async () => {
+    await getNetworkDownloadSpeed();
 }, 5000)
