@@ -14,6 +14,7 @@
 
 //import NetworkSpeed from 'network-speed'; // ES6
 var args = process.argv.slice(2);
+const axios = require('axios');
 const NetworkSpeed = require('network-speed');  // ES5
 const testNetworkSpeed = new NetworkSpeed();
 
@@ -26,6 +27,10 @@ async function getNetworkDownloadSpeed() {
     speed.location = args[0];
     console.log(date + " : " + speed.mbps + " mbps");
     //console.log(speed);
+
+    if (speed.mbps < args[1])
+        axios.post("https://metro-slack.glitch.me/internet-sos", speed)
+
   } catch (err) {
     console.log(date + " : " + err.toString());
   }
