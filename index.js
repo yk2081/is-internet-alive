@@ -19,20 +19,21 @@ const NetworkSpeed = require('network-speed');  // ES5
 const testNetworkSpeed = new NetworkSpeed();
 
 async function getNetworkDownloadSpeed() {
-  const baseUrl = 'http://cleoemr.com:9000/dummy_data';
+  //const baseUrl = 'http://cleoemr.com:9000/dummy_data';
+  const baseUrl = 'https://s3.amazonaws.com/app.cleoemr.com/dummy';
   const fileSizeInBytes = 5000000;
-  let date = new Date().toString();
+  let date = new Date().toLocaleDateString() + "\t" + new Date().toLocaleTimeString();
   try {
     let speed = await testNetworkSpeed.checkDownloadSpeed(baseUrl, fileSizeInBytes);
     speed.location = args[0];
-    console.log(date + " : " + speed.mbps + " mbps");
+    console.log(date + "\t" + speed.mbps);
     //console.log(speed);
 
     if (speed.mbps < args[1])
         axios.post("https://metro-slack.glitch.me/internet-sos", speed)
 
   } catch (err) {
-    console.log(date + " : " + err.toString());
+    console.log(date + "\t" + err.toString());
   }
 
 }
@@ -57,4 +58,4 @@ async function getNetworkDownloadSpeed() {
 
 setInterval(async () => {
     await getNetworkDownloadSpeed();
-}, 5000)
+}, 30000)

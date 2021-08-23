@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/yk2081/is-internet-alive#readme",
   "dependencies": {
+    "axios": "^0.21.1",
     "net-ping": "^1.2.3",
     "network-speed": "^2.1.1"
   }
