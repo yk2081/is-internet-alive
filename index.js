@@ -27,11 +27,14 @@ async function getNetworkDownloadSpeed() {
   try {
     let speed = await testNetworkSpeed.checkDownloadSpeed(baseUrl, fileSizeInBytes);
     speed.location = args[0];
+    speed.threshold = parseFloat(args[1]);
     console.log(date + "\t" + speed.mbps);
-    //console.log(speed);
 
-    if (speed.mbps < args[1])
+    if (parseFloat(speed.mbps) < speed.threshold) {
+        //console.log("yes");
         axios.post("https://metro-slack.glitch.me/internet-sos", speed)
+    }
+        
 
   } catch (err) {
     console.log(date + "\t" + err.toString());
