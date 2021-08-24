@@ -18,6 +18,7 @@ const axios = require('axios');
 const NetworkSpeed = require('network-speed');  // ES5
 const testNetworkSpeed = new NetworkSpeed();
 
+console.log(args[0] + ", " + args[1]);
 async function getNetworkDownloadSpeed() {
   //const baseUrl = 'http://cleoemr.com:9000/dummy_data';
   const baseUrl = 'https://s3.amazonaws.com/app.cleoemr.com/dummy';
